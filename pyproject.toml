@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "docusketch-todoapp"
+version = "0.1.0"
+description = ""
+authors = ["cnwv <115669384+cnwv@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^4.1"
+djangorestframework = "^3.14.0"
+Markdown = "^3.5.1"
+django-filter = "^23.3"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+isort = "^5.12.0"
+flake8 = "^6.1.0"
+django-debug-toolbar = "^4.2.0"
+drf-yasg = "^1.21.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

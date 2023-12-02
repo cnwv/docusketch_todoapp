@@ -11,7 +11,7 @@ class Category(models.Model):
 
 
 class Task(models.Model):
-    Category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=500)
     description = models.CharField(max_length=500)
     date_created = models.DateField(auto_now_add=True)

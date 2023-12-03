@@ -12,6 +12,7 @@ class Category(models.Model):
 class TaskFile(models.Model):
     file = models.FileField(null=True, upload_to='task_files/')
     uploaded_on = models.DateTimeField(auto_now_add=True)
+    task = models.ForeignKey('Task', on_delete=models.CASCADE)
 
 
 class Task(models.Model):
@@ -23,7 +24,6 @@ class Task(models.Model):
     date_updated = models.DateField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
-    files = models.ManyToManyField(TaskFile)
 
     def __str__(self):
         return f'{self.name}'

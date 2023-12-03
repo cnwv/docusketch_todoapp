@@ -14,12 +14,10 @@ class TaskFileSerializer(ModelSerializer):
     class Meta:
         model = TaskFile
         fields = '__all__'
+        extra_kwargs = {'task': {'required': False}}
 
 
 class TaskSerializer(ModelSerializer):
-    files = TaskFileSerializer(many=True, read_only=True)
-
     class Meta:
         model = Task
         fields = '__all__'
-

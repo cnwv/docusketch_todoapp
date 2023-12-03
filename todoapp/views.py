@@ -1,11 +1,13 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.mixins import RetrieveModelMixin, ListModelMixin, CreateModelMixin, UpdateModelMixin
-from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import status
+from rest_framework.mixins import (CreateModelMixin, ListModelMixin,
+                                   RetrieveModelMixin, UpdateModelMixin)
+from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
+
+from .filters import CategoryModelFilter, TaskFilter
 from .models import Category, Task, TaskFile
-from .serializers import CategorySerializer, TaskSerializer, TaskFileSerializer
-from .filters import TaskFilter, CategoryModelFilter
+from .serializers import CategorySerializer, TaskFileSerializer, TaskSerializer
 
 
 class CategoryViewSet(ModelViewSet):
@@ -15,7 +17,11 @@ class CategoryViewSet(ModelViewSet):
     filterset_class = CategoryModelFilter
 
 
-class TaskViewSet(RetrieveModelMixin, ListModelMixin, CreateModelMixin, UpdateModelMixin, GenericViewSet):
+class TaskViewSet(RetrieveModelMixin,
+                  ListModelMixin,
+                  CreateModelMixin,
+                  UpdateModelMixin,
+                  GenericViewSet):
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
     filter_backends = [DjangoFilterBackend]
@@ -35,7 +41,8 @@ class TaskViewSet(RetrieveModelMixin, ListModelMixin, CreateModelMixin, UpdateMo
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        files_serializer = TaskFileSerializer(instance.taskfile_set.all(), many=True)
+        files_serializer = TaskFileSerializer(
+            instance.taskfile_set.all(), many=True)
         response_data = {
             'task': serializer.data,
             'files': files_serializer.data

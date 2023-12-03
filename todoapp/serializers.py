@@ -1,6 +1,5 @@
-from rest_framework.relations import HyperlinkedRelatedField
-from rest_framework.serializers import ModelSerializer, StringRelatedField, JSONField, HyperlinkedModelSerializer, \
-    SlugRelatedField
+from rest_framework.serializers import ModelSerializer
+
 from .models import Category, Task, TaskFile
 
 

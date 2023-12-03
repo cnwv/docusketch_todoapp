@@ -17,8 +17,8 @@ router.register('categories', CategoryViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api-token-auth/', obtain_auth_token),
-    path('auth/', include('users.urls')),
+    path('api/login', obtain_auth_token),
+    path('api/auth/', include('users.urls')),
     path(
         'api/tasks/<int:task_id>/task_files/',
         TaskFileViewSet.as_view({'post': 'create'}),

@@ -1,7 +1,7 @@
-from django.urls import re_path
+from django.urls import path
 
 from .views import create_auth
 
 urlpatterns = [
-    re_path(r'^users/register/$', create_auth, name='register'),
+    path('register/', create_auth, name='register'),
 ]

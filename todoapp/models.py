@@ -4,14 +4,19 @@ from users.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=124)
-    user = models.ManyToManyField(User)
 
     def __str__(self):
         return f'{self.name}'
 
 
+class TaskFile(models.Model):
+    task_id = models.ForeignKey('Task', on_delete=models.CASCADE, null=True)
+    file = models.FileField(null=True, upload_to='task_files/')
+    uploaded_on = models.DateTimeField(auto_now_add=True)
+
+
 class Task(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=500)
     description = models.CharField(max_length=500)
     date_created = models.DateField(auto_now_add=True)

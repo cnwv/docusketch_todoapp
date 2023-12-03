@@ -1,11 +1,10 @@
-from django_filters.rest_framework import DjangoFilterBackend
+# from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.mixins import RetrieveModelMixin, ListModelMixin, CreateModelMixin
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import status
-# from .filters import ProjectModelFilter, TODOFilter
-from .models import Category, Task
-from .serializers import CategorySerializer, TaskSerializer
-from rest_framework.pagination import LimitOffsetPagination
+from .models import Category, Task, TaskFile
+from .serializers import CategorySerializer, TaskSerializer, TaskFileSerializer
 
 
 class CategoryViewSet(ModelViewSet):
@@ -26,3 +25,8 @@ class TaskViewSet(ModelViewSet):
         instance.is_active = False
         instance.save()
         return Response(data='Task is done', status=status.HTTP_204_NO_CONTENT)
+
+
+class TaskFileViewSet(RetrieveModelMixin, ListModelMixin, CreateModelMixin, GenericViewSet):
+    queryset = TaskFile.objects.all()
+    serializer_class = TaskFileSerializer
